@@ -60,13 +60,11 @@ return(output)
 This function reads the input dataframe, uses the sgdp4 function to output position/velocity and the TEMEtoLATLON function (also from the asterisk package) to output geodetic latitude, longitude, and alitiude- which is what we can use to plot the information relative to earth/on a map. 
 
 ## The Final Data Set & Shiny App: 
-
 To get to the final dataset I used the dplyr package for data wrangling. To filter out the other object types like payloads, rocket bodies, and unknown objects to only contain Debris objects. 
 
 Finally I built a Shiny application with some visuals to explore the findings.  The globe visual and timeseries plot in the application come from the html widgets R package family,namely Threejs & dygraphs. These plots work just like regular R plots, but produce interactive web visualizations based on JavaScript libraries.   The dygraphs package for the timeseries plot also includes an option to add custom CSS which I included in the visualization. The code for the dygraphs and globe visual are included in this repository. 
 
 ## Other Related Work 
-
 The SGP4/SDP4 Models can also be used to propagate position of sattelites at a future time. In another analysis I have created visualizations that show a complete orbit of a sattelite object, rater than debris only. This is derived by getting the position at epoch and propogating in intervals to a new target time, which in this case is epoch+ period in mins. the Orbital period represents the time in mins it takes for an object to orbit around another object, in this case the object is Earth.  I will be authoring another shiny app to showcase this analysis. 
 
 
