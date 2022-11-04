@@ -1,24 +1,25 @@
-## Space Debris App Background and Overview
+## Space Junk App Background and Overview
+
+### What is Space Debris?
+Orbital debris (aka Space Junk) is any human-made object in orbit about the Earth that no longer serves a useful function. Such debris includes nonfunctional spacecraft, abandoned launch vehicle stages, mission-related debris, and fragmentation debris (source:NASA.gov)
 
 ### Purpose of Space Debris App 
 I built this shiny application as an exploratory and interactive app that visualizes the amount of debris or junk that is in space to users. When I first began working with sattelite data I was really surprised by the amount of stuff that is in earth's orbit. Especially in recent years with commericial launches of sattelites like Elon Musk's Starlink, the volume of objects in space continues to expand. Every object launched has potential to become space debris. This topic is important because too much space junk impedes spaceflight around earth &  increases liklihood of collisions- which can impact our internet, weather, and communication satellites. 
 
-## Analysis Steps:
+### Analysis Steps to Build Space Junk Shiny App:
+Below are the steps required to access, transform, parse, and get positional information for space debris objects visualized in the app. 
+
 1. Access Data Via Space-Track API 
-2. Transform JSON response to Data Frame 
-3. Parse TLEs (desciption below) 
-4. Use Simplified Perturbation Models to find position of satellites or objects in orbit at a given time
+2. Transform JSON responses 
+3. Parse TLEs 
+4. Use Simplified Perturbation Models to find position of satellites or objects in earth's orbit at a given time
 5. Subset Debris objects & Visualize results
-6. Shiny Application 
-
-## What is Space Debris?
-Orbital debris (aka Space Junk) is any human-made object in orbit about the Earth that no longer serves a useful function. Such debris includes nonfunctional spacecraft, abandoned launch vehicle stages, mission-related debris, and fragmentation debris (source:NASA.gov)
-
+6. Build Shiny Application 
 
 ## Accessing Data: 
-The data used in this App/analysis is from Space-track.org. Users can create an account and use the API. 
+The data used in this App/analysis is from Space-track.org. Users can create an account and use the API. Description from the Space-Track Website:
 
-'Description from the Space-Track Website: "USSPACECOM provides space surveillance data to registered users through this public website, www.space-track.org. 18 SDS routinely updates the website with positional data on more than 16,000 satellites in orbit around the Earth. Users can build customized API queries to pull specific data from historical records, and automate the retrieval of new data, help enhance spaceflight safety, prevent potentially catastrophic orbital collisions, and increase international cooperation in space"'
+"USSPACECOM provides space surveillance data to registered users through this public website, www.space-track.org. 18 SDS routinely updates the website with positional data on more than 16,000 satellites in orbit around the Earth. Users can build customized API queries to pull specific data from historical records, and automate the retrieval of new data, help enhance spaceflight safety, prevent potentially catastrophic orbital collisions, and increase international cooperation in space"
 
 ## Working with TLE Data 
 The data from spacetrack comes in the form of Two-Line Element Sets or TLEs. A desciption of TLEs from Wikipedia: 
@@ -34,7 +35,7 @@ Each number represents an orbital element that we use to predict where a satelli
 
 
 ## Using TLEs to Predict Location of a Satellite or Object in Earth's Orbit
-Mathematical models are required to translate the TLE information into positional information. To site the R package I used in my analysis- “Unlike positional information of planes and other aircrafts, satellite positions is not readily available for any timepoint along its orbit” (Rafael Ayala, Daniel Ayala, David Ruiz and Lara Selles Vidal (2021). asteRisk: Computation of Satellite Position. R package version 1.1.0. https://CRAN.R-project.org/package=asteRisk) 
+Mathematical models are required to translate the TLE information into positional information. To site the R package I used in my analysis: “Unlike positional information of planes and other aircrafts, satellite positions is not readily available for any timepoint along its orbit” (Rafael Ayala, Daniel Ayala, David Ruiz and Lara Selles Vidal (2021). asteRisk: Computation of Satellite Position. R package version 1.1.0. https://CRAN.R-project.org/package=asteRisk) 
 
 The models used for this are called Simplified perturbations models.  From Wikipedia “Simplified perturbations models are a set of five mathematical models (SGP, SGP4, SDP4, SGP8 and SDP8) used to calculate orbital state vectors of satellites and space debris relative to the Earth-centered inertial coordinate system.” 
 
