@@ -3,8 +3,8 @@
 ### What is Space Debris?
 Orbital debris (aka Space Junk) is any human-made object in orbit about the Earth that no longer serves a useful function. Such debris includes nonfunctional spacecraft, abandoned launch vehicle stages, mission-related debris, and fragmentation debris (source:NASA.gov)
 
-### Purpose of Space Debris App 
-I built this shiny application as an exploratory and interactive app that visualizes the amount of debris or junk that is in space to users. When I first began working with sattelite data I was really surprised by the amount of stuff that is in earth's orbit. Especially in recent years with commericial launches of sattelites like Elon Musk's Starlink, the volume of objects in space continues to expand. Every object launched has potential to become space debris. This topic is important because too much space junk impedes spaceflight around earth &  increases liklihood of collisions- which can impact our internet, weather, and communication satellites. 
+### Purpose of Analysis & Space Debris App 
+This project & shiny application is an exploratory tool that showcases the astounding amount of space junk/debris around Earth's orbit for curious users. When I began working with satellite data I was really surprised by the amount of stuff that is in earth's orbit & belive others would be interested as well. Especially in recent years with commericial launches of sattelites like Elon Musk's Starlink, the volume of objects in space continues to expand. Every object launched has potential to become space debris. This topic is important because too much space junk impedes spaceflight around earth &  increases liklihood of collisions- which can impact our internet, weather, and communication satellites. 
 
 ### Analysis Steps:
 Below are the steps required to access, transform, parse, and get positional information for space debris objects visualized in the app. 
