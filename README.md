@@ -4,7 +4,7 @@
 Orbital debris (aka Space Junk) is any human-made object in orbit about the Earth that no longer serves a useful function. Such debris includes nonfunctional spacecraft, abandoned launch vehicle stages, mission-related debris, and fragmentation debris (source:NASA.gov)
 
 ### Purpose of Analysis & Space Debris App 
-This project & shiny application is an exploratory tool that showcases the astounding amount of space junk/debris around Earth's orbit for curious users. When I began working with satellite data I was really surprised by the amount of stuff that is in earth's orbit & belive others would be interested as well. Especially in recent years with commericial launches of sattelites like Elon Musk's Starlink, the volume of objects in space continues to expand. Every object launched has potential to become space debris. This topic is important because too much space junk impedes spaceflight around earth &  increases liklihood of collisions- which can impact our internet, weather, and communication satellites. 
+This project & shiny application is an exploratory tool that showcases the astounding amount of space junk/debris around Earth's orbit for curious users. When I began working with satellite data, I was surprised by the amount of stuff that is in earth's orbit and believe others would be interested as well. Especially in recent years with commercial launches of satellites like Elon Musk's Starlink, the volume of objects in space continues to expand. Every object launched has potential to become space debris. This topic is important because too much space junk impedes spaceflight around earth & increases risk of collisions- which can impact our internet, weather, and communication satellites. 
 
 ### Analysis Steps:
 Below are the steps required to access, transform, parse, and get positional information for space debris objects visualized in the app. 
@@ -22,7 +22,7 @@ The data used in this App/analysis is from Space-track.org. Users can create an 
 "USSPACECOM provides space surveillance data to registered users through this public website, www.space-track.org. 18 SDS routinely updates the website with positional data on more than 16,000 satellites in orbit around the Earth. Users can build customized API queries to pull specific data from historical records, and automate the retrieval of new data, help enhance spaceflight safety, prevent potentially catastrophic orbital collisions, and increase international cooperation in space"
 
 ## Working with TLE Data 
-The data from spacetrack comes in the form of Two-Line Element Sets or TLEs. A desciption of TLEs from Wikipedia: 
+The data from spacetrack comes in the form of Two-Line Element Sets or TLEs. A description of TLEs from Wikipedia: 
 “A two-line element set (TLE) is a data format encoding a list of orbital elements of an Earth-orbiting object for a given point in time, the epoch. Using a suitable prediction formula, the state (position and velocity) at any point in the past or future can be estimated to some accuracy.”
 
 This is what a TLE for a single satellite looks like: 
@@ -42,7 +42,7 @@ The models used for this are called Simplified perturbations models.  From Wikip
 ## Simplified Perturbations Models in R 
 I used the R package cited about asterisk created by Rafael Ayala, Daniel Ayala, David Ruiz and Lara Selles Vidal. This package has SGP4 and SDP4 functions to apply orbital propagation models. 
 
-While the asterisk package did most of the heavy lifting, I developed a repeatable approach to applying the propagation models to a larger subset of data. The SGP4/SDP4 functions from the asterisk package ionly reads one input (one TLE) at a time. For this analysis, I wanted to derive the positional information for the entire data set. I created an iterative function to accomplish this (code below). 
+While the asterisk package did most of the heavy lifting, I developed a repeatable approach to applying the propagation models to a larger subset of data. The SGP4/SDP4 functions from the asterisk package reads one input (one TLE) at a time. For this analysis, I wanted to derive the positional information for the entire data set. I created an iterative function to accomplish this (code below). 
 
 ```
 library(tidyr)
@@ -57,7 +57,7 @@ mutate(LL=list(TEMEtoLATLON(position_TEME = position*1000,dateTime = initialDate
 return(output)
 }
 ```
-This function reads the input dataframe, uses the sgdp4 function to output position/velocity and the TEMEtoLATLON function (also from the asterisk package) to output geodetic latitude, longitude, and alitiude- which is what we can use to plot the information relative to earth/on a map. 
+This function reads the input dataframe, uses the sgdp4 function to output position/velocity and the TEMEtoLATLON function (also from the asterisk package) to output geodetic latitude, longitude, and altitude- which is what we can use to plot the information relative to earth/on a map. 
 
 ## The Final Data Set & Shiny App: 
 To get to the final dataset I used the dplyr package for data wrangling. To filter out the other object types like payloads, rocket bodies, and unknown objects to only contain Debris objects. 
@@ -65,4 +65,4 @@ To get to the final dataset I used the dplyr package for data wrangling. To filt
 Finally I built a Shiny application with some visuals to explore the findings.  The globe visual and timeseries plot in the application come from the html widgets R package family,namely Threejs & dygraphs. These plots work just like regular R plots, but produce interactive web visualizations based on JavaScript libraries.   The dygraphs package for the timeseries plot also includes an option to add custom CSS which I included in the visualization. The code for the dygraphs and globe visual are included in this repository. 
 
 ## Other Related Work 
-The SGP4/SDP4 Models can also be used to propagate position of sattelites at a future time. In another analysis I have created visualizations that show a complete orbit of a sattelite object, rater than debris only. This is derived by getting the position at epoch and propogating in intervals to a new target time, which in this case is epoch+ period in mins. the Orbital period represents the time in mins it takes for an object to orbit around another object, in this case the object is Earth.  I will be authoring another shiny app to showcase this analysis. 
+The SGP4/SDP4 Models can also be used to propagate position of satellites at a future time. In another analysis I have created visualizations that show a complete orbit of a satellite object, rater than debris only. This is derived by getting the position at epoch and propagating in intervals to a new target time, which in this case is epoch+ period in mins. the Orbital period represents the time in mins it takes for an object to orbit around another object, in this case the object is Earth.  I will be authoring another shiny app to showcase this analysis. 
