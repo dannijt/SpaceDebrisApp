@@ -1,4 +1,4 @@
-Space Debris App Background and Overview
+## Space Debris App Background and Overview
 
 ## Purpose of Space Debris App 
 I built this shiny application as an exploratory and interactive app that visualizes the amount of debris or junk that is in space to users. When I first began working with sattelite data I was really surprised by the amount of stuff that is in earth's orbit. Especially in recent years with commericial launches of sattelites like Elon Musk's Starlink, the volume of objects in space continues to expand. Every object launched has potential to become space debris. This topic is important because too much space junk impedes spaceflight around earth &  increases liklihood of collisions- which can impact our internet, weather, and communication satellites. 
@@ -33,14 +33,14 @@ Each number represents an orbital element that we use to predict where a satelli
 
 
 ## How can we use TLEs to Predict Location of a Sattelite or Object in Earth's Orbit?
-A  model is required to translate the TLE information into positional information. To site the R package I used in my analysis- “Unlike positional information of planes and other aircrafts, satellite positions is not readily available for any timepoint along its orbit” (Rafael Ayala, Daniel Ayala, David Ruiz and Lara Selles Vidal (2021). asteRisk: Computation of Satellite Position. R package version 1.1.0. https://CRAN.R-project.org/package=asteRisk) 
+Mathematical models are required to translate the TLE information into positional information. To site the R package I used in my analysis- “Unlike positional information of planes and other aircrafts, satellite positions is not readily available for any timepoint along its orbit” (Rafael Ayala, Daniel Ayala, David Ruiz and Lara Selles Vidal (2021). asteRisk: Computation of Satellite Position. R package version 1.1.0. https://CRAN.R-project.org/package=asteRisk) 
 
 The models used for this are called Simplified perturbations models.  From Wikipedia “Simplified perturbations models are a set of five mathematical models (SGP, SGP4, SDP4, SGP8 and SDP8) used to calculate orbital state vectors of satellites and space debris relative to the Earth-centered inertial coordinate system.” 
 
 ## Modeling 
 I used the R package cited about asterisk created by Rafael Ayala, Daniel Ayala, David Ruiz and Lara Selles Vidal. This package has SGP4 and SDP4 functions to apply orbital propagation models. 
 
-While the asterisk package reduced a lot of the complexity of this analysis, I still had to come up with an easy and repeatable approach to applying the propagation models to a larger subset of data. The SGP4/SDP4 functions from the asterisk package ionly reads one input (one TLE) at a time. For this analysis, I wanted to derive the positional information for the entire data set. I created an iterative function to accomplish this (code below). 
+While the asterisk package did most of the heavy lifting, I developed a repeatable approach to applying the propagation models to a larger subset of data. The SGP4/SDP4 functions from the asterisk package ionly reads one input (one TLE) at a time. For this analysis, I wanted to derive the positional information for the entire data set. I created an iterative function to accomplish this (code below). 
 
 ```
 library(tidyr)
@@ -49,7 +49,9 @@ library(asteRisk)
 
 propagate <- function(x){
 output<- x %>% rowwise %>%
-mutate(SP=list(tryCatch(sgdp4(n0=n0,e0=ECCENTRICITY,M0=M0,i0=i0,omega0=omega0,OMEGA0,Bstar,initialDateTime=ParsedEpoch,targetTime=targetTime), error=function(e) NA))) %>% unnest_wider(SP) %>% rowwise%>% mutate(LL=list(tryCatch(TEMEtoLATLON(position_TEME = position*1000,dateTime = ParsedEpoch), error=function(e) NA)))%>% unnest_wider(LL,names_repair="unique")
+mutate(SP=list(sgdp4(n0,e0,M0,i0,omega0,OMEGA0,Bstar,initialDateTime,targetTime)))
+%>% unnest_wider(SP) %>% rowwise %>%
+mutate(LL=list(TEMEtoLATLON(position_TEME = position*1000,dateTime = initialDateTime)))%>% unnest_wider(LL,names_repair="unique")
 return(output)
 }
 ```
@@ -60,6 +62,10 @@ This function reads the input dataframe, uses the sgdp4 function to output posit
 To get to the final dataset I used the dplyr package for data wrangling. To filter out the other object types like payloads, rocket bodies, and unknown objects to only contain Debris objects. 
 
 Finally I built a Shiny application with some visuals to explore the findings.  The globe visual and timeseries plot in the application come from the html widgets R package family,namely Threejs & dygraphs. These plots work just like regular R plots, but produce interactive web visualizations based on JavaScript libraries.   The dygraphs package for the timeseries plot also includes an option to add custom CSS which I included in the visualization. The code for the dygraphs and globe visual are included in this repository. 
+
+## Other Related Work 
+
+The SGP4/SDP4 Models can also be used to propagate position of sattelites at a future time. In another analysis I have created visualizations that show a complete orbit of a sattelite object, rater than debris only. This is derived by getting the position at epoch and propogating in intervals to a new target time, which in this case is epoch+ period in mins. the Orbital period represents the time in mins it takes for an object to orbit around another object, in this case the object is Earth.  I will be authoring another shiny app to showcase this analysis. 
 
 
 
