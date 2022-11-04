@@ -6,7 +6,7 @@ Orbital debris (aka Space Junk) is any human-made object in orbit about the Eart
 ### Purpose of Space Debris App 
 I built this shiny application as an exploratory and interactive app that visualizes the amount of debris or junk that is in space to users. When I first began working with sattelite data I was really surprised by the amount of stuff that is in earth's orbit. Especially in recent years with commericial launches of sattelites like Elon Musk's Starlink, the volume of objects in space continues to expand. Every object launched has potential to become space debris. This topic is important because too much space junk impedes spaceflight around earth &  increases liklihood of collisions- which can impact our internet, weather, and communication satellites. 
 
-### Analysis Steps to Build Space Junk Shiny App:
+### Analysis Steps:
 Below are the steps required to access, transform, parse, and get positional information for space debris objects visualized in the app. 
 
 1. Access Data Via Space-Track API 
@@ -66,6 +66,3 @@ Finally I built a Shiny application with some visuals to explore the findings.  
 
 ## Other Related Work 
 The SGP4/SDP4 Models can also be used to propagate position of sattelites at a future time. In another analysis I have created visualizations that show a complete orbit of a sattelite object, rater than debris only. This is derived by getting the position at epoch and propogating in intervals to a new target time, which in this case is epoch+ period in mins. the Orbital period represents the time in mins it takes for an object to orbit around another object, in this case the object is Earth.  I will be authoring another shiny app to showcase this analysis. 
-
-
-
