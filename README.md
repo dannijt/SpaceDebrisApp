@@ -1,10 +1,7 @@
 ## Space Debris App Background and Overview
 
-## Purpose of Space Debris App 
+### Purpose of Space Debris App 
 I built this shiny application as an exploratory and interactive app that visualizes the amount of debris or junk that is in space to users. When I first began working with sattelite data I was really surprised by the amount of stuff that is in earth's orbit. Especially in recent years with commericial launches of sattelites like Elon Musk's Starlink, the volume of objects in space continues to expand. Every object launched has potential to become space debris. This topic is important because too much space junk impedes spaceflight around earth &  increases liklihood of collisions- which can impact our internet, weather, and communication satellites. 
-
-## What is Space Debris?
-Orbital debris (aka Space Junk) is any human-made object in orbit about the Earth that no longer serves a useful function. Such debris includes nonfunctional spacecraft, abandoned launch vehicle stages, mission-related debris, and fragmentation debris (source:NASA.gov)
 
 ## Analysis Steps:
 1. Access Data Via Space-Track API 
@@ -13,6 +10,10 @@ Orbital debris (aka Space Junk) is any human-made object in orbit about the Eart
 4. Use Simplified Perturbation Models to find position of satellites or objects in orbit at a given time
 5. Subset Debris objects & Visualize results
 6. Shiny Application 
+
+## What is Space Debris?
+Orbital debris (aka Space Junk) is any human-made object in orbit about the Earth that no longer serves a useful function. Such debris includes nonfunctional spacecraft, abandoned launch vehicle stages, mission-related debris, and fragmentation debris (source:NASA.gov)
+
 
 ## Accessing Data: 
 The data used in this App/analysis is from Space-track.org. Users can create an account and use the API. 
@@ -32,12 +33,12 @@ ISS (ZARYA)
 Each number represents an orbital element that we use to predict where a satellite is at a given time. To read more about orbital elements: https://www.space-track.org/documentation#tle
 
 
-## How can we use TLEs to Predict Location of a Sattelite or Object in Earth's Orbit?
+## Using TLEs to Predict Location of a Satellite or Object in Earth's Orbit
 Mathematical models are required to translate the TLE information into positional information. To site the R package I used in my analysis- “Unlike positional information of planes and other aircrafts, satellite positions is not readily available for any timepoint along its orbit” (Rafael Ayala, Daniel Ayala, David Ruiz and Lara Selles Vidal (2021). asteRisk: Computation of Satellite Position. R package version 1.1.0. https://CRAN.R-project.org/package=asteRisk) 
 
 The models used for this are called Simplified perturbations models.  From Wikipedia “Simplified perturbations models are a set of five mathematical models (SGP, SGP4, SDP4, SGP8 and SDP8) used to calculate orbital state vectors of satellites and space debris relative to the Earth-centered inertial coordinate system.” 
 
-## Modeling 
+## Simplified Perturbations Models in R 
 I used the R package cited about asterisk created by Rafael Ayala, Daniel Ayala, David Ruiz and Lara Selles Vidal. This package has SGP4 and SDP4 functions to apply orbital propagation models. 
 
 While the asterisk package did most of the heavy lifting, I developed a repeatable approach to applying the propagation models to a larger subset of data. The SGP4/SDP4 functions from the asterisk package ionly reads one input (one TLE) at a time. For this analysis, I wanted to derive the positional information for the entire data set. I created an iterative function to accomplish this (code below). 
