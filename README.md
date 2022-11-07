@@ -2,6 +2,7 @@
 
 ### Links to Shiny Applications
 [Desktop](https://danni-apps.shinyapps.io/Danni_SpaceJunk/)
+
 [Mobile](https://danni-apps.shinyapps.io/spacedebris_mobile/)
 
 ### What is Space Debris?
