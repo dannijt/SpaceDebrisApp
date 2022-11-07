@@ -116,3 +116,4 @@ GlobeVisual<- globejs(lat = tab2()$latitude,
                       atmosphere=TRUE, 
                       pointsize=.5,
                       color="#69b3a2")
+
