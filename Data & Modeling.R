@@ -25,7 +25,7 @@ json<-jsonlite::fromJSON(resp2)
 
 
 #data prep 
-#conversion functions 
+# write conversion functions 
 
 degrees_to_radians<- function(x){ x*pi/180} #degrees to Radians conversion
 dateTime<- function(x){
