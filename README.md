@@ -2,7 +2,7 @@
 
 ### Links to Shiny Applications
 [Desktop](https://danni-apps.shinyapps.io/Danni_SpaceJunk/)
-[Mobile] (https://danni-apps.shinyapps.io/spacedebris_mobile/)
+[Mobile](https://danni-apps.shinyapps.io/spacedebris_mobile/)
 
 ### What is Space Debris?
 Orbital debris (aka Space Junk) is any human-made object in orbit about the Earth that no longer serves a useful function. Such debris includes nonfunctional spacecraft, abandoned launch vehicle stages, mission-related debris, and fragmentation debris (source:NASA.gov)
