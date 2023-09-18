@@ -1,7 +1,7 @@
 ## Space Junk App Background and Overview
 
-### Links to Shiny Applications
-[Desktop](https://danni-apps.shinyapps.io/Danni_SpaceJunk/)
+### Links to Shiny Application
+
 
 [Mobile](https://danni-apps.shinyapps.io/SpaceDebris_Update/)
 
